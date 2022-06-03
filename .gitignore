@@ -130,4 +130,5 @@ dmypy.json
 
 data/geography/*
 data/population/*
+data/voting/*
 data/precincts/*
