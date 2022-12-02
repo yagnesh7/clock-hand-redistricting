@@ -1,0 +1,80 @@
+{
+    
+    "CO": {
+        "FILE": "../data/co/CO_precincts",
+        "NUM_OF_DISTRICTS": 7,
+        "POPULATION": "TOTPOP",
+        "DEMOCRAT_VOTES": "USH18D",
+        "REPUBLICAN_VOTES": "USH18R"
+    },
+
+    
+    "DE": {
+        "FILE": "../data/de/de_2016/",
+        "NUM_OF_DISTRICTS": 1,
+        "POPULATION": "POPULATION",
+        "DEMOCRAT_VOTES": "G16DPRS",
+        "REPUBLICAN_VOTES": "G16RPRS"
+    },
+
+    "HI": {
+        "FILE": "../data/de/de_2016/",
+        "NUM_OF_DISTRICTS": 2,
+        "POPULATION": "TOTPOP",
+        "DEMOCRAT_VOTES": "GOV18D",
+        "REPUBLICAN_VOTES": "GOV18R"
+    },
+
+    
+
+
+    "MA": {
+        "FILE": "../data/ma/ma_2016/",
+        "NUM_OF_DISTRICTS": 9,
+        "POPULATION": "POP10",
+        "DEMOCRAT_VOTES": "PRES16D",
+        "REPUBLICAN_VOTES": "PRES16R"
+    },
+
+    "ME": {
+        "FILE": "../data/me/Maine/",
+        "NUM_OF_DISTRICTS": 2,
+        "POPULATION": "TOTPOP",
+        "DEMOCRAT_VOTES": "PRES16D",
+        "REPUBLICAN_VOTES": "PRES16R"
+    },
+
+    "OH": {
+        "FILE": "../data/oh/OH_precincts",
+        "NUM_OF_DISTRICTS": 16,
+        "POPULATION": "TOTPOP",
+        "DEMOCRAT_VOTES": "USH16D",
+        "REPUBLICAN_VOTES": "USH16R"
+    },
+    
+
+
+    "OR": {
+        "FILE": "../data/or/or_2016/",
+        "NUM_OF_DISTRICTS": 5,
+        "POPULATION": "TOTPOP",
+        "DEMOCRAT_VOTES": "GOV18D",
+        "REPUBLICAN_VOTES": "GOV18R"
+    },
+    
+    
+    "PA": {
+        "FILE": "../data/pa/PA_2020_vtds",
+        "NUM_OF_DISTRICTS": 18,
+        "POPULATION": "TOTPOP19",
+        "DEMOCRAT_VOTES": "G18GOVDWOL",
+        "REPUBLICAN_VOTES": "G18GOVRWAG"
+    },
+
+    "TX": {
+        "NUM_OF_DISTRICTS": 36,
+        "POPULATION": "TOTPOP",
+        "DEMOCRAT_VOTES": "PRES16D",
+        "REPUBLICAN_VOTES": "PRES16R"
+    }
+}
