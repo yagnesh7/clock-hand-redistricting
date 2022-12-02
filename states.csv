@@ -1,52 +1,51 @@
-﻿state,abbrev,districts,file,dem_votes,rep_votes
-Alabama,AL,7,,,
-Alaska,AK,1,,,
-Arizona,AZ,9,az_precincts,USH18D,USH18R
-Arkansas,AS,4,,,
-California,CA,52,,,
-Colorado,CO,8,CO_precincts,USH18D,USH18R
-Connecticut,CT,5,CT_precincts,USH18D,USH18R
-Delaware,DE,1,,,
-Florida,FL,28,,,
-Georgia,GA,14,GA_precincts,PRES16D,PRES16R
-Hawaii,HI,2,HI_precincts,USH18D,USH18R
-Idaho,ID,2,,,
-Illinois,IL,17,,,
-Indiana,IN,9,Indiana,PRES16D,PRES16R
-Iowa,IA,4,IA_counties,PRES16D,PRES16R
-Kansas,KS,4,,,
-Kentucky,KY,6,,,
-Louisiana,LA,6,LA_1519,PRES16D,PRES16R
-Maine,ME,2,Maine,USH16D,USH16R
-Maryland,MD,8,MD_precincts_abs,USH18D,USH18R
-Massachusetts,MA,9,MA_precincts_12_16,PRES16D,PRES16R
-Michigan,MI,13,MI,SEN18D,SEN18R
-Minnesota,MN,8,MN12_18,USH18D,USH18R
-Mississippi,MS,4,,,
-Missouri,MO,8,,,
-Montana,MT,2,,,
-Nebraska,NE,3,NE,USH18D,USH18R
-Nevada,NV,4,,,
-New Hampshire,NH,2,NH,USH20D,USH20R
-New Jersey,NJ,12,,,
-New Mexico,NM,3,new_mexico_precincts,SEN18D,SEN18R
-New York,NY,26,,,
-North Carolina,NC,14,NC_VTD,EL16G_PR_D,EL16G_PR_R
-North Dakota,ND,1,,,
-Ohio,OH,15,OH_precincts,USH16D,USH16R
-Oklahoma,OK,5,OK_precincts,USH18D,USH18R
-Oregon,OR,6,OR_precincts,USH18D,USH18R
-Pennsylvania,PA,17,PA_2020_vtds,GOV14D,GOV14R
-Rhode Island,RI,2,RI_precincts,SEN18D,SEN18R
-South Carolina,CA,7,,,
-South Dakota,SD,1,,,
-Tennessee,TN,9,,,
-Texas,TX,38,,,
-Utah,UT,4,UT_precincts,PRES16D,PRES16R
-Vermont,VT,1,,,
-Virginia,VA,11,VA_precincts,G18DHOR,G18RHOR
-Washington,WA,10,,,
-West Virginia,WV,2,,,
-Wisconsin,WI,8,WI_vtd20,GOVD18,GOVR18
-Wyoming,WY,1,,,
-,,,,,
+﻿state,abbrev,districts,file,dem_votes,rep_votes,population
+Alabama,AL,7,,,,
+Alaska,AK,1,,,,
+Arizona,AZ,9,az_precincts,USH18D,USH18R,TOTPOP
+Arkansas,AS,4,,,,
+California,CA,52,,,,
+Colorado,CO,8,CO_precincts,USH18D,USH18R,TOTPOP
+Connecticut,CT,5,CT_precincts,USH18D,USH18R,TOTPOP
+Delaware,DE,1,,,,
+Florida,FL,28,,,,
+Georgia,GA,14,GA_precincts,PRES16D,PRES16R,TOTPOP
+Hawaii,HI,2,HI_precincts,USH18D,USH18R,TOTPOP
+Idaho,ID,2,,,,
+Illinois,IL,17,,,,
+Indiana,IN,9,Indiana,PRES16D,PRES16R,TOTPOP
+Iowa,IA,4,IA_counties,PRES16D,PRES16R,TOTPOP
+Kansas,KS,4,,,,
+Kentucky,KY,6,,,,
+Louisiana,LA,6,LA_1519,PRES16D,PRES16R,TOTPOP
+Maine,ME,2,Maine,USH16D,USH16R,TOTPOP
+Maryland,MD,8,MD_precincts_abs,USH18D,USH18R,TOTPOP
+Massachusetts,MA,9,MA_precincts_12_16,PRES16D,PRES16R,TOTPOP
+Michigan,MI,13,MI,SEN18D,SEN18R,TOTPOP
+Minnesota,MN,8,MN12_18,USH18D,USH18R,TOTPOP
+Mississippi,MS,4,,,,
+Missouri,MO,8,,,,
+Montana,MT,2,,,,
+Nebraska,NE,3,NE,USH18D,USH18R,TOTPOP
+Nevada,NV,4,,,,
+New Hampshire,NH,2,NH,USH20D,USH20R,TOTPOP
+New Jersey,NJ,12,,,,
+New Mexico,NM,3,new_mexico_precincts,SEN18D,SEN18R,TOTPOP
+New York,NY,26,,,,
+North Carolina,NC,14,NC_VTD,EL16G_PR_D,EL16G_PR_R,TOTPOP
+North Dakota,ND,1,,,,
+Ohio,OH,15,OH_precincts,USH16D,USH16R,TOTPOP
+Oklahoma,OK,5,OK_precincts,USH18D,USH18R,TOTPOP
+Oregon,OR,6,OR_precincts,USH18D,USH18R,TOTPOP
+Pennsylvania,PA,17,PA_2020_vtds,G18GOVDWOL,G18GOVRWAG,TOTPOP19
+Rhode Island,RI,2,RI_precincts,SEN18D,SEN18R,TOTPOP
+South Carolina,CA,7,,,,
+South Dakota,SD,1,,,,
+Tennessee,TN,9,,,,
+Texas,TX,38,,,,
+Utah,UT,4,UT_precincts,PRES16D,PRES16R,TOTPOP
+Vermont,VT,1,,,,TOTPOP
+Virginia,VA,11,VA_precincts,G18DHOR,G18RHOR,TOTPOP
+Washington,WA,10,,,,
+West Virginia,WV,2,,,,
+Wisconsin,WI,8,WI_vtd20,USH18D,USH18R,TOTPOP20
+Wyoming,WY,1,,,,
