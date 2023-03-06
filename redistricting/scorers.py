@@ -63,7 +63,7 @@ def abs_diff_mean_fn(df_1, df_2, dem_col, rep_col, **kwargs):
     rep_prop_2 = summed_pops_2[rep_col]/(summed_pops_2[rep_col]+summed_pops_2[dem_col])
     score_2 = abs(dem_prop_2-rep_prop_2)
 
-    score = (score_1+score_2) # Average of both
+    score = (score_1+score_2)
     return score
 
 def match_statewide_mean_fn(df_1, df_2, dem_col, rep_col, **kwargs):

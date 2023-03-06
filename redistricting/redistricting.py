@@ -73,7 +73,8 @@ def split_this(df, n_districts, holder, n_split=1, pop_col = "POPULATION", dem_c
             # Spin Clock Around till you achieve the desired ratio
             i = 0
             captured_pop = 0
-            while captured_pop < (part_a)/(part_a+part_b)*pop_total:
+            pop_threshold = (part_a)/(part_a+part_b)*pop_total
+            while captured_pop < pop_threshold:
                 captured_pop += df.loc[i, pop_col]
                 i += 1
             final_angle = df.loc[i-1, 'RECENTERED_ANGLE']
@@ -85,10 +86,31 @@ def split_this(df, n_districts, holder, n_split=1, pop_col = "POPULATION", dem_c
             if abs(a2 - a1) <= degree_limit:
                 continue
 
+
+            ## Checking if swapping the last district will get us closer to the desired proportion. 
+
+            pop_check1 = df.loc[(a1 <= df['RECENTERED_ANGLE']) & (df['RECENTERED_ANGLE'] <= a2)][pop_col].sum() # right inclusive
+            balance_1 = (pop_check1/pop_total)*(1-(pop_check1/pop_total))
+            pop_check2 = df.loc[(a1 <= df['RECENTERED_ANGLE']) & (df['RECENTERED_ANGLE'] < a2)][pop_col].sum() # right exclusive
+            balance_2 = (pop_check2/pop_total)*(1-(pop_check2/pop_total))
+            balance_desired = (part_a)/(part_a+part_b)*(1-(part_a)/(part_a+part_b))
+
+            inclusive = True if abs(balance_1 - balance_desired) <= (balance_2 - balance_desired) else False
+
+            # if pop_check.iloc[1:,][pop_col].sum() >= pop_threshold:
+            #     a1 = pop_check.loc[1, 'RECENTERED_ANGLE']
+
+ 
             if a1 < a2:
+                if inclusive:
                     df[f'SPLIT_{n_split}'] = df['RECENTERED_ANGLE'].apply(lambda x: 1 if a1 <= x <= a2 else 0)
+                else:
+                    df[f'SPLIT_{n_split}'] = df['RECENTERED_ANGLE'].apply(lambda x: 1 if a1 <= x < a2 else 0)
             elif a1 > a2:
+                if inclusive:
                     df[f'SPLIT_{n_split}'] = df['RECENTERED_ANGLE'].apply(lambda x: 1 if ((x >= a1) or (x <= a2)) else 0)
+                else:
+                    df[f'SPLIT_{n_split}'] = df['RECENTERED_ANGLE'].apply(lambda x: 1 if ((x >= a1) or (x < a2)) else 0)
 
             # Dissolve Check for Non-Contiguity
             if dissolve_check:
