@@ -134,3 +134,6 @@ data/voting/*
 data/precincts/*
 data
 output/
+redistricting/data_prep/input/*
+redistricting/data_prep/output/*
+redistricting/data_prep/maup.ipynb
