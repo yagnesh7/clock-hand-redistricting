@@ -137,3 +137,6 @@ output/
 redistricting/data_prep/input/*
 redistricting/data_prep/output/*
 redistricting/data_prep/maup.ipynb
+
+*.csv
+*.xlsx
