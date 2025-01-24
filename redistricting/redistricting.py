@@ -30,6 +30,19 @@ def count_disjoints(geometry):
         return 1
     else:
         return len(geometry.geoms)
+    
+def find_furtherst_angle(geo, pop_LON, pop_LAT):
+    if type(geo) == shapely.geometry.polygon.Polygon:
+        coords = np.array(geo.exterior.coords)
+        relative_differences = coords - np.array([pop_LON, pop_LAT])
+        angle = np.max(np.degrees(np.arctan2(relative_differences[:,0],relative_differences[:,1])))
+    elif type(geo) == shapely.geometry.multipolygon.MultiPolygon:
+        coords = np.concatenate([np.array(g.exterior.coords) for g in geo.geoms])
+        relative_differences = coords - np.array([pop_LON, pop_LAT])
+        angle = np.max(np.degrees(np.arctan2(relative_differences[:,0],relative_differences[:,1])))
+    if angle < 0:
+        angle += 360
+    return angle
 
 
 def split_this(
@@ -46,6 +59,7 @@ def split_this(
     n_sample_angles=None,
     degree_limit=0,
     dissolve_check=False,
+    pivot_strategy="pcm",
 ):
     # print(n_districts)
     if n_districts != 1:
@@ -60,13 +74,28 @@ def split_this(
         # Get Total Population
         pop_total = df[pop_col].sum()
 
-        # Get Population Center
-        pop_center_LON = (df["RP_LON"] * df[pop_col]).sum() / pop_total
-        pop_center_LAT = (df["RP_LAT"] * df[pop_col]).sum() / pop_total
+        if pivot_strategy == "pcm":
+            print("pcm")
+            # Get Population Center
+            pop_center_LON = (df["RP_LON"] * df[pop_col]).sum() / pop_total
+            pop_center_LAT = (df["RP_LAT"] * df[pop_col]).sum() / pop_total
 
-        # Re-center LAT/LON relative to the Population Center
-        df["RECENTERED_LON"] = df["RP_LON"] - pop_center_LON
-        df["RECENTERED_LAT"] = df["RP_LAT"] - pop_center_LAT
+            # Re-center LAT/LON relative to the Population Center
+            df["RECENTERED_LON"] = df["RP_LON"] - pop_center_LON
+            df["RECENTERED_LAT"] = df["RP_LAT"] - pop_center_LAT
+        
+        elif pivot_strategy == "centroid":
+            # Default to Centroid
+            centroid_LON, centroid_LAT = df.dissolve().centroid[0].coords[0]
+            print("Centroid")
+
+            # Re-center LAT/LON relative to the Centroid
+            df["RECENTERED_LON"] = df["RP_LON"] - centroid_LON
+            df["RECENTERED_LAT"] = df["RP_LAT"] - centroid_LAT
+        else:
+            raise ValueError("Only 'centroid' and 'pcm' are accepted pivot strategies at the moment.")
+
+
 
         # Get Angle by using ARCTAN(RECENTERED_LAT, RECENTERED_LON)
         df["RECENTERED_ANGLE"] = np.degrees(
@@ -75,6 +104,8 @@ def split_this(
         df["RECENTERED_ANGLE"] = df["RECENTERED_ANGLE"].apply(
             lambda x: x if x > 0 else x + 360
         )
+
+        # df["RECENTERED_ANGLE"] = df['geometry'].apply(find_furtherst_angle, pop_LON=pop_center_LON, pop_LAT=pop_center_LAT)
 
         ## LOOP for d in 0 to 359 ##
         start_angles = np.linspace(0, 359, 360)
@@ -185,6 +216,7 @@ def split_this(
                     "end": final_angle,
                     "score": score,
                     "disjoints": dissolved_pieces,
+                    "inclusive": inclusive
                 }
             )
 
@@ -196,15 +228,26 @@ def split_this(
         )
 
         a1, a2 = ars.iloc[0]["start"], ars.iloc[0]["end"]
+        inclusive = ars.iloc[0]["inclusive"]
         ## Check if angle range loops past 360 for conditions:
         if a1 < a2:
-            df[f"SPLIT_{n_split}"] = df["RECENTERED_ANGLE"].apply(
-                lambda x: 1 if a1 <= x <= a2 else 0
-            )
+            if inclusive:
+                df[f"SPLIT_{n_split}"] = df["RECENTERED_ANGLE"].apply(
+                    lambda x: 1 if a1 <= x <= a2 else 0
+                )
+            else:
+                df[f"SPLIT_{n_split}"] = df["RECENTERED_ANGLE"].apply(
+                    lambda x: 1 if a1 <= x < a2 else 0
+                )
         elif a1 > a2:
-            df[f"SPLIT_{n_split}"] = df["RECENTERED_ANGLE"].apply(
-                lambda x: 1 if ((x >= a1) or (x <= a2)) else 0
-            )
+            if inclusive:
+                df[f"SPLIT_{n_split}"] = df["RECENTERED_ANGLE"].apply(
+                    lambda x: 1 if ((x >= a1) or (x <= a2)) else 0
+                )
+            else:
+                df[f"SPLIT_{n_split}"] = df["RECENTERED_ANGLE"].apply(
+                    lambda x: 1 if ((x >= a1) or (x < a2)) else 0
+                )
 
         df_a = df.loc[df[f"SPLIT_{n_split}"] == 1].copy().reset_index(drop=True)
         df_b = df.loc[df[f"SPLIT_{n_split}"] == 0].copy().reset_index(drop=True)
@@ -222,6 +265,7 @@ def split_this(
             n_sample_angles=n_sample_angles,
             degree_limit=degree_limit,
             score_fn=score_fn,
+            pivot_strategy=pivot_strategy,
         )
         split_this(
             df_b,
@@ -236,6 +280,7 @@ def split_this(
             n_sample_angles=n_sample_angles,
             degree_limit=degree_limit,
             score_fn=score_fn,
+            pivot_strategy=pivot_strategy,
         )
 
     else:
@@ -315,3 +360,6 @@ def split_review(
     plt.show()
 
     return districts_df
+
+def folium_mapper(df, map_type):
+    pass

@@ -136,3 +136,65 @@ def equalize_voting(df_1, df_2, dem_col, rep_col, **kwargs):
 
     score = abs(dem_prop_1 - dem_prop_2)
     return score
+
+
+def schwartzberg_score(geom):
+    perimeter = geom.length
+    area = geom.area
+
+    numerator = 4 * math.pi * area
+    denominator = perimeter**2
+    score = math.sqrt(numerator / denominator)
+
+    return score
+
+
+def convex_hull_score(geom):
+    area = geom.area[0]
+    convex_hull_area = geom.convex_hull.area[0]
+
+    score = area / convex_hull_area
+    return score
+
+
+def polsby_popper_score(geom):
+    perimeter = geom.length[0]
+    area = geom.area[0]
+
+    numerator = 4 * math.pi * area
+    denominator = perimeter**2
+    score = numerator / denominator
+
+    return score
+
+
+def reock_score(geom):
+    geom_area = geom.geometry.area[0]
+    min_circle = geom.geometry.minimum_bounding_circle()[0]
+    min_circle_area = min_circle.area
+    reock_score = geom_area / min_circle_area
+    return reock_score
+
+def length_width_score(geom):
+        bounds = geom.bounds
+
+        # Generate points
+        minx = bounds.loc[0]["minx"]
+        maxx = bounds.loc[0]["maxx"]
+        miny = bounds.loc[0]["miny"]
+        maxy = bounds.loc[0]["maxy"]
+
+        side1 = maxx - minx
+        side2 = maxy - miny
+        if side1 > side2:
+            numerator = side2
+            denominator = side1
+        else:
+            numerator = side1
+            denominator = side2
+        score = numerator/denominator
+        return score
+
+def min_perimeter_score(geom):
+    perimeter = geom.length[0]
+    return -perimeter
